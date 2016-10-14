@@ -1,0 +1,14 @@
+<?php
+use Drupal\context\ContextManager;
+use Drupal\Component\Plugin\Context;
+use Drupal\context\Plugin\ContextReaction;
+
+function mod_context_reaction_preprocess_html(&$variables){
+
+    if($plugins = \Drupal::service('context.manager')->getActiveReactions('theme_html')) {
+        foreach($plugins as $reaction){
+            $reaction->execute($variables);
+        }
+    }
+
+}
