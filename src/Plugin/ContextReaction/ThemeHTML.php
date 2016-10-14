@@ -2,13 +2,10 @@
 
 namespace Drupal\mod_context_reaction\Plugin\ContextReaction;
 
-use Drupal\Core\Session\AccountInterface;
 use Drupal\context\ContextInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\context\ContextReactionPluginBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Plugin\Context\ContextHandlerInterface;
-use Drupal\Core\Plugin\Context\ContextRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -24,39 +21,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ThemeHTML extends ContextReactionPluginBase implements  ContainerFactoryPluginInterface{
 
     /**
-     * The Drupal UUID service.
-     *
-     * @var \Drupal\Component\Uuid\UuidInterface
-     */
-    protected $uuid;
-    /**
-     * @var \Drupal\Core\Theme\ThemeManagerInterface
-     */
-    protected $themeManager;
-
-    /**
-     * @var \Drupal\Core\Extension\ThemeHandlerInterface
-     */
-    protected $themeHandler;
-
-    /**
-     * @var ContextRepositoryInterface
-     */
-    protected $contextRepository;
-
-    /**
-     * @var ContextHandlerInterface
-     */
-    protected $contextHandler;
-
-    /**
-     * @var AccountInterface
-     */
-    protected $account;
-
-
-
-    /**
      * Provides a human readable summary of the condition's configuration.
      *
      * @return \Drupal\Core\StringTranslation\TranslatableMarkup
@@ -65,7 +29,6 @@ class ThemeHTML extends ContextReactionPluginBase implements  ContainerFactoryPl
     {
         return $this->t('Provides this text as an additional body class (in attributes in html.html.twig) when this section is active.');
     }
-
 
     /**
      * Creates an instance of the plugin.
@@ -89,13 +52,7 @@ class ThemeHTML extends ContextReactionPluginBase implements  ContainerFactoryPl
         return new static(
             $configuration,
             $pluginId,
-            $pluginDefinition,
-            $container->get('uuid'),
-            $container->get('theme.manager'),
-            $container->get('theme_handler'),
-            $container->get('context.repository'),
-            $container->get('context.handler'),
-            $container->get('current_user')
+            $pluginDefinition
         );
     }
 
@@ -125,8 +82,6 @@ class ThemeHTML extends ContextReactionPluginBase implements  ContainerFactoryPl
             'theme_html' => []
         ] + parent::defaultConfiguration();
     }
-
-
 
     /**
      * Form constructor.
@@ -179,12 +134,9 @@ class ThemeHTML extends ContextReactionPluginBase implements  ContainerFactoryPl
 
     public function submitConfigurationForm(array &$form, FormStateInterface $form_state,ContextInterface $context = NULL)
     {
-
         $classes = $form_state->getValue('class');
         if(isset($classes) && !empty($classes)){
            $this->setConfiguration(array('theme_html' => array('class' => $classes)));
         }
-
     }
-
 }
