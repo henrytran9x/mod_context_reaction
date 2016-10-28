@@ -1,0 +1,20 @@
+{
+  "name": "drupal/mod_context_reaction",
+  "description": "Plugin Reaction for module Context",
+  "type": "drupal-module",
+  "license": "MIT",
+  "homepage": "https://github.com/henrytran9x/mod_context_reaction",
+  "authors": [
+    {
+      "name": "Henry Tran",
+      "email": "kienan91@gmail.com",
+      "homepage": "http://www.trankienan.com/",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/henrytran9x/mod_context_reaction/issues",
+    "source": "https://github.com/henrytran9x/mod_context_reaction",
+    "docs": "https://github.com/henrytran9x/mod_context_reaction"
+  }
+}
